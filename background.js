@@ -17,6 +17,7 @@ const app=Vue.createApp({
             products: [],
             selectedItem:{},
             itemCounter:"",
+            pagination:{},
         }
     },
 
@@ -55,9 +56,10 @@ const app=Vue.createApp({
             this.selectedItem={};
             this.selectedItem=item;},
 
-        getProduct(){
-            axios.get(`${apiUrl}/api/${path}/admin/products/all`)
+        getProduct(page=1){
+            axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
                 .then((res)=>{this.products=res.data.products;
+                    this.pagination=res.data.pagination;
                     this.itemCounter=Object.values(this.products).length;})
                 .catch((error)=>{console.dir(error);})},
         
