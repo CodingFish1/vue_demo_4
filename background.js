@@ -1,4 +1,5 @@
 // import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.9/vue.esm-browser.js';
+import pagination from "./components/pagination.js";
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
 let productModal="";
@@ -20,7 +21,7 @@ const app=Vue.createApp({
             pagination:{},
         }
     },
-
+    components:{pagination},
     methods:{
         modalSwitcher(status,item){
             if(status==="new"){
