@@ -19,10 +19,7 @@ const app=Vue.createApp({
             selectedItem:{},
             itemCounter:"",
 
-            pagination:{},
-            currPage:"",
-            nextPage:"",
-            prePage:"",
+            pagination_bg:{}, //pagination data from backend
         }
     },
     components:{pagination},
@@ -64,7 +61,7 @@ const app=Vue.createApp({
         getProduct(page=1){
             axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
                 .then((res)=>{this.products=res.data.products;
-                    this.pagination=res.data.pagination;
+                    this.pagination_bg=res.data.pagination;
                     this.itemCounter=Object.values(this.products).length;})
                 .catch((error)=>{console.dir(error);})},
         
@@ -84,8 +81,9 @@ const app=Vue.createApp({
                     .then((res)=>{if(res.data.success){this.getProduct()}})
                     .catch((error)=>{alert('驗證失敗，請重試');window.location = 'index.html';})},
         
-        pageGetter(page){
+        pageClicked(page){
             console.log(page);
+            this.getProduct(page);
             // this.nextPage=this.currPage++;
             // this.prePage=this.currPage--;
         }
