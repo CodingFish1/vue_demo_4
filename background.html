@@ -86,16 +86,18 @@
                     <img class="img-fluid" v-bind:src="tempProduct.imageUrl">
                   </div>
                   <h3 class="mb-3">多圖新增</h3>
-                  <div class="mb-2" v-for="(item,key) in tempProduct.imagesUrl" :key="key">
-                    <div class="mb-3">
-                      <input type="text" class="form-control mb-2" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
-                      <img class="img-fluid" v-bind:src="tempProduct.imagesUrl[key]" alt="">
+                  <div v-if="Array.isArray(tempProduct.imagesUrl)">
+                    <div class="mb-2" v-for="(item,key) in tempProduct.imagesUrl" :key="key">
+                      <div class="mb-3">
+                        <input type="text" class="form-control mb-2" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
+                        <img class="img-fluid" v-bind:src="tempProduct.imagesUrl[key]" alt="">
+                      </div>
                     </div>
-                  </div>
-                  <div v-if="tempProduct.imagesUrl.length===0 ||tempProduct.imagesUrl[tempProduct.imagesUrl.length-1]">
-                    <button class="btn btn-outline-primary btn-sm d-block w-100" @click="addImg">
-                      新增圖片
-                    </button>
+                    <div v-if="tempProduct.imagesUrl.length===0 ||tempProduct.imagesUrl[tempProduct.imagesUrl.length-1]">
+                      <button class="btn btn-outline-primary btn-sm d-block w-100" @click="addImg">
+                        新增圖片
+                      </button>
+                    </div>
                   </div>
                   <div v-else>
                     <button class="btn btn-outline-danger btn-sm d-block w-100" @click="rmImg">
