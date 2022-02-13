@@ -64,7 +64,7 @@
             </tr>
           </tbody>
         </table>
-        <pagination v-bind:pagination="pagination"></pagination>
+        <pagination v-bind:pagination="pagination" @curr-page="pageGetter"></pagination>
       </div>
       <!-- Modal -->
       <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"

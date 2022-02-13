@@ -18,7 +18,11 @@ const app=Vue.createApp({
             products: [],
             selectedItem:{},
             itemCounter:"",
+
             pagination:{},
+            currPage:"",
+            nextPage:"",
+            prePage:"",
         }
     },
     components:{pagination},
@@ -78,7 +82,13 @@ const app=Vue.createApp({
             axios.defaults.headers.common['Authorization']=token;
             axios.post(`${apiUrl}/api/user/check`)
                     .then((res)=>{if(res.data.success){this.getProduct()}})
-                    .catch((error)=>{alert('驗證失敗，請重試');window.location = 'index.html';})}
+                    .catch((error)=>{alert('驗證失敗，請重試');window.location = 'index.html';})},
+        
+        pageGetter(page){
+            console.log(page);
+            // this.nextPage=this.currPage++;
+            // this.prePage=this.currPage--;
+        }
     },
 
     mounted(){
