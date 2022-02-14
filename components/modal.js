@@ -1,24 +1,61 @@
+const apiUrl='https://vue3-course-api.hexschool.io/v2';
+const path='williamone';
+// let productModal="";
+
 export default{
     data(){
         return{
+
         };
     },
-    props:[],
-    methods:{
-      pageTrans(page){
-        this.current_page=page;
-        console.log("clicked");
-        this.$emit('curr-page',this.current_page)
-      }
+    props:['tempProduct','axiosStatus','currpagejs'],
 
-    },
+    // watch:{
+    //   axiosStatus:function(requesttype){
+    //     console.log(requesttype);
+    //   }
+    // },
+
+    methods:{
+
+      cudRouter(){
+        if(this.axiosStatus==='new'){
+            axios.post(`${apiUrl}/api/${path}/admin/product`,{data:this.tempProduct})
+                .then((res)=>{
+                console.log(res);
+                this.$emit('fromChild')
+                productModal.hide()})
+                .catch((error)=>{console.dir(error);})
+        }else if(this.axiosStatus==='edit'){
+            axios.put(`${apiUrl}/api/${path}/admin/product/${this.tempProduct.id}`,{data:this.tempProduct})
+                .then((res)=>{
+                console.log(res);
+                this.$emit('fromChild',currpagejs)
+                console.log(currpagejs);
+                productModal.hide()})
+                .catch((error)=>{console.dir(error);})}},
+      
+      addImg(){
+        this.tempProduct.imagesUrl.push('');
+      },
+      
+      rmImg(){
+        this.tempProduct.imagesUrl.pop();
+      },
+
+      },
+
+    mounted(){
+      // productModal=new bootstrap.Modal(document.querySelector('#productModal'));
+  },
+
     template:`<div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
     aria-hidden="true">
  <div class="modal-dialog modal-xl">
    <div class="modal-content border-0">
      <div class="modal-header bg-dark text-white">
        <h5 id="productModalLabel" class="modal-title">
-         <span>新增產品</span>
+         <slot><span></span></slot>
        </h5>
        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
      </div>
@@ -31,22 +68,24 @@ export default{
              <img class="img-fluid" v-bind:src="tempProduct.imageUrl">
            </div>
            <h3 class="mb-3">多圖新增</h3>
-           <div class="mb-2" v-for="(item,key) in tempProduct.imagesUrl" :key="key">
-             <div class="mb-3">
-               <input type="text" class="form-control mb-2" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
-               <img class="img-fluid" v-bind:src="tempProduct.imagesUrl[key]" alt="">
-             </div>
-           </div>
-           <div v-if="tempProduct.imagesUrl.length===0 ||tempProduct.imagesUrl[tempProduct.imagesUrl.length-1]">
-             <button class="btn btn-outline-primary btn-sm d-block w-100" @click="addImg">
-               新增圖片
-             </button>
-           </div>
-           <div v-else>
-             <button class="btn btn-outline-danger btn-sm d-block w-100" @click="rmImg">
-               刪除圖片
-             </button>
-           </div>
+           <div v-if="Array.isArray(tempProduct.imagesUrl)">
+            <div class="mb-2" v-for="(item,key) in tempProduct.imagesUrl" :key="key">
+              <div class="mb-3">
+                <input type="text" class="form-control mb-2" placeholder="請輸入圖片連結" v-model="tempProduct.imagesUrl[key]">
+                <img class="img-fluid" v-bind:src="tempProduct.imagesUrl[key]" alt="">
+              </div>
+            </div>
+            <div v-if="tempProduct.imagesUrl.length===0 ||tempProduct.imagesUrl[tempProduct.imagesUrl.length-1]">
+              <button class="btn btn-outline-primary btn-sm d-block w-100" @click="addImg">
+                新增圖片
+              </button>
+            </div>
+          </div>
+          <div v-else>
+            <button class="btn btn-outline-danger btn-sm d-block w-100" @click="rmImg">
+              刪除圖片
+            </button>
+          </div>
          </div>
          <div class="col-sm-8">
            <div class="mb-3">

@@ -8,7 +8,6 @@ export default{
     methods:{
       pageTrans(page){
         this.current_page=page;
-        console.log("clicked");
         this.$emit('curr-page',this.current_page)
       }
 
