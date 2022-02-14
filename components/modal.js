@@ -1,6 +1,5 @@
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
-// let productModal="";
 
 export default{
     data(){
@@ -23,17 +22,16 @@ export default{
             axios.post(`${apiUrl}/api/${path}/admin/product`,{data:this.tempProduct})
                 .then((res)=>{
                 console.log(res);
-                this.$emit('fromChild')
-                productModal.hide()})
+                this.$emit('fromChild')})
                 .catch((error)=>{console.dir(error);})
         }else if(this.axiosStatus==='edit'){
             axios.put(`${apiUrl}/api/${path}/admin/product/${this.tempProduct.id}`,{data:this.tempProduct})
                 .then((res)=>{
                 console.log(res);
                 this.$emit('fromChild',currpagejs)
-                console.log(currpagejs);
-                productModal.hide()})
-                .catch((error)=>{console.dir(error);})}},
+                console.log(currpagejs);})
+                .catch((error)=>{console.dir(error);})}
+              },
       
       addImg(){
         this.tempProduct.imagesUrl.push('');
@@ -46,7 +44,7 @@ export default{
       },
 
     mounted(){
-      // productModal=new bootstrap.Modal(document.querySelector('#productModal'));
+      
   },
 
     template:`<div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"

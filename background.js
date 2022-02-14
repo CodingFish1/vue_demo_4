@@ -38,12 +38,16 @@ const app=Vue.createApp({
                 this.axiosStatus='edit';
                 this.modalTitle="編輯商品"
                 productModal.show();}},
+                
         getProduct(page=1){
             axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
                 .then((res)=>{
+                    console.log("Hi");
                     this.products=res.data.products;
                     this.pagination_bg=res.data.pagination;
                     this.itemCounter=Object.values(this.products).length;
+                    productModal.hide();
+                    console.log("Hi");
                 })
                 .catch((error)=>{console.dir(error);})},
         
