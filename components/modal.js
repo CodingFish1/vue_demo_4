@@ -28,8 +28,8 @@ export default{
             axios.put(`${apiUrl}/api/${path}/admin/product/${this.tempProduct.id}`,{data:this.tempProduct})
                 .then((res)=>{
                 console.log(res);
-                this.$emit('fromChild',currpagejs)
-                console.log(currpagejs);})
+                this.$emit('fromChild',this.currpagejs)
+                console.log(this.currpagejs);})
                 .catch((error)=>{console.dir(error);})}
               },
       

@@ -1,6 +1,7 @@
 // import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.9/vue.esm-browser.js';
 import pagination from "./components/pagination.js";
 import productmodal from "./components/modal.js";
+import delmodal from "./components/delmodal.js";
 const apiUrl='https://vue3-course-api.hexschool.io/v2';
 const path='williamone';
 let productModal="";
@@ -24,7 +25,7 @@ const app=Vue.createApp({
             pagination_bg:{}, //pagination data from backend
         }
     },
-    components:{pagination,productmodal},
+    components:{pagination,productmodal,delmodal},
 
     methods:{
         modalSwitcher(status,item){
@@ -55,12 +56,9 @@ const app=Vue.createApp({
             delModal.show()
             this.itemToDel=JSON.parse(JSON.stringify(item))},
 
-        deleteItem(){
-            axios.delete(`${apiUrl}/api/${path}/admin/product/${this.itemToDel.id}`)
-                .then((res)=>{this.getProduct();
-                    delModal.hide()})
-                .catch((error)=>{
-                    console.dir(error);})},
+        delFinished(){
+            this.getProduct();
+            delModal.hide()},
         
         loginVeri(){
             const token= document.cookie.replace(/(?:(?:^|.*;\s*)hextoken\s*\=\s*([^;]*).*$)|^.*$/, "$1");

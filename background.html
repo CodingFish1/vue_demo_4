@@ -69,7 +69,8 @@
       </div>
       <!-- Modal -->
       <productmodal :temp-product="tempProduct" :currpagejs="pagination_bg.current_page" :axios-status="axiosStatus" @from-child="getProduct(page)">{{modalTitle}}</productmodal>
-      <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
+      <delmodal :item-to-del="itemToDel" @from-del="delFinished"></delmodal>
+      <!-- <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
            aria-labelledby="delProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content border-0">
@@ -93,7 +94,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Modal -->
     </div>
     <script src="./background.js" type="module"></script>
